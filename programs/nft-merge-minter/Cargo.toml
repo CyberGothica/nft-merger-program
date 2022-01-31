@@ -24,7 +24,5 @@ spl-token = { version="3.1.1", features = [ "no-entrypoint" ] }
 solana-program = "1.7.11"
 thiserror = "1.0"
 metaplex-token-metadata = { version="0.0.1", features = [ "no-entrypoint" ] }
-spl-associated-token-account = {version = "1.0.3", features = ["no-entrypoint"]}
 anchor-spl = "0.19.0"
-solana-gateway = { git = "https://github.com/identity-com/on-chain-identity-gateway", rev = "2d195dcd33bcd1a26b09d79ee90cc6f7282c87aa" }
 nft-merge-burner = { path = "../nft-merge-burner", features = ["no-entrypoint"] }

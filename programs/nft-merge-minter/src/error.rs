@@ -14,8 +14,6 @@ pub enum ErrorCode {
     NoBurnInstruction,
     #[error("Account does not have correct owner!")]
     IncorrectOwner,
-    #[error("Account is not initialized!")]
-    Uninitialized,
     #[error("Mint Mismatch!")]
     MintMismatch,
     #[error("Index greater than length!")]
@@ -26,36 +24,12 @@ pub enum ErrorCode {
     TooManyCreators,
     #[error("Uuid must be exactly of 6 length")]
     UuidMustBeExactly6Length,
-    #[error("Not enough tokens to pay for this minting")]
-    NotEnoughTokens,
-    #[error("Not enough SOL to pay for this minting")]
-    NotEnoughSOL,
-    #[error("Token transfer failed")]
-    TokenTransferFailed,
     #[error("Candy machine is empty!")]
     CandyMachineEmpty,
-    #[error("Candy machine is not live!")]
-    CandyMachineNotLive,
     #[error("Configs that are using hidden uris do not have config lines, they have a single hash representing hashed order")]
     HiddenSettingsConfigsDoNotHaveConfigLines,
     #[error("Cannot change number of lines unless is a hidden config")]
     CannotChangeNumberOfLines,
-    #[error("Derived key invalid")]
-    DerivedKeyInvalid,
-    #[error("Public key mismatch")]
-    PublicKeyMismatch,
-    #[error("No whitelist token present")]
-    NoWhitelistToken,
-    #[error("Token burn failed")]
-    TokenBurnFailed,
-    #[error("Missing gateway app when required")]
-    GatewayAppMissing,
-    #[error("Missing gateway token when required")]
-    GatewayTokenMissing,
-    #[error("Invalid gateway token expire time")]
-    GatewayTokenExpireTimeInvalid,
-    #[error("Missing gateway network expire feature when required")]
-    NetworkExpireFeatureMissing,
     #[error("Unable to find an unused config line near your random number index")]
     CannotFindUsableConfigLine,
     #[error("Invalid string")]

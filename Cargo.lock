@@ -781,13 +781,10 @@ name = "nft-merge-burner"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
- "anchor-spl",
- "arrayref",
  "metaplex-token-metadata",
  "num-derive",
  "num-traits",
  "solana-program",
- "spl-associated-token-account",
  "spl-token",
  "thiserror",
 ]
@@ -803,9 +800,7 @@ dependencies = [
  "nft-merge-burner",
  "num-derive",
  "num-traits",
- "solana-gateway",
  "solana-program",
- "spl-associated-token-account",
  "spl-token",
  "thiserror",
 ]
@@ -1116,19 +1111,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f2dd574626839106c320a323308629dcb1acfc96e32a8cba364ddc61ac23ee83"
 
 [[package]]
-name = "sol-did"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d2546d424d6898908c205d99d3af07ad42e2e8aec8f0d459235dc0bd4e9866fe"
-dependencies = [
- "borsh",
- "num-derive",
- "num-traits",
- "solana-program",
- "thiserror",
-]
-
-[[package]]
 name = "solana-frozen-abi"
 version = "1.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1158,20 +1140,6 @@ dependencies = [
  "quote",
  "rustc_version",
  "syn",
-]
-
-[[package]]
-name = "solana-gateway"
-version = "0.0.4"
-source = "git+https://github.com/identity-com/on-chain-identity-gateway?rev=2d195dcd33bcd1a26b09d79ee90cc6f7282c87aa#2d195dcd33bcd1a26b09d79ee90cc6f7282c87aa"
-dependencies = [
- "bitflags",
- "borsh",
- "num-derive",
- "num-traits",
- "sol-did",
- "solana-program",
- "thiserror",
 ]
 
 [[package]]
