@@ -35,8 +35,7 @@ pub mod nft_merge_burner {
         }
 
         let candy_machine_keys = vec![
-            Pubkey::from_str("9GkEPXXrb6Z11MUHwMbDuRQSpHETa5bReQtaH71txAEQ").unwrap(),
-            Pubkey::from_str("DmeJsA7tRtxwfng98t1SJRr1oD87AWbZyCf7mHYS57rC").unwrap(),
+            Pubkey::from_str("HRZenNJUfb2Fu3DpsRTS3qtMw3bpkF1hAv345bmMLvXc").unwrap(),
         ];
  
         for nft_index in 0..AMOUNT_OF_NFTS_TO_MERGE {
@@ -49,6 +48,12 @@ pub mod nft_merge_burner {
             let metadata_account = &ctx.remaining_accounts[&nft_index * 3 + 2];
             let metadata = try_from_slice_unchecked::<Metadata>(&metadata_account.data.borrow()).unwrap();
 
+            msg!("Candy machine id: {:?}", metadata.data.creators.as_ref().unwrap()[0].address.clone());
+
+            // if ctx.accounts.payer.to_account_info().key == metadata.data.creators.as_ref().unwrap()[1].address.clone {
+            //     continue;
+            // }
+            
             if(&metadata.mint != &nft_token_account_info.mint || nft_account.key != &metadata.mint ) {
                 return Err(MergeError::MintMismatch.into());
             }
@@ -56,7 +61,7 @@ pub mod nft_merge_burner {
             if(&nft_token_account_info.owner != ctx.accounts.payer.to_account_info().key) {
                 return Err(MergeError::WrongOwner.into());
             }
-                
+            
             /* Checking if nft was minted by one of our candy machines */
             if candy_machine_keys.contains(&metadata.data.creators.unwrap()[0].address) {
                 spl_token_burn(TokenBurnParams {
