@@ -14,7 +14,7 @@ use {
     },
     std::str::FromStr
 };
-anchor_lang::declare_id!("DVfyt45U4wzui3Gd48DoEvrZUMTBbYNh1dukRXasjc8q");
+anchor_lang::declare_id!("9sjrgXW8tPCQxGao6SmWPXYrJ6RyoYGhtasHSNT3eqF4");
 
 pub const AMOUNT_OF_NFTS_TO_MERGE: usize = 4;
 
@@ -39,8 +39,9 @@ pub mod nft_merge_burner {
         }
 
         let candy_machine_keys = vec![
-            Pubkey::from_str("HRZenNJUfb2Fu3DpsRTS3qtMw3bpkF1hAv345bmMLvXc").unwrap(),
-            Pubkey::from_str("Ghrv95ZrMSEUgY4AntWZ9k5QNbQjYTj9V7b9KM5aLnHG").unwrap(),
+            Pubkey::from_str("4HTTvxNCo2k1vuHYvt1i9munLXgHCpWwZhbXZyBpZDC5").unwrap(),
+            Pubkey::from_str("2oc5emaELf6CrG4kXf2PF82MJMCtTHUZ23s9x6YP3DYs").unwrap(),
+            Pubkey::from_str("GC5g3Xh65uiutVndEWP23Ye3Ph4CCGQc4u48R59w281R").unwrap(),
         ];
  
         for nft_index in 0..AMOUNT_OF_NFTS_TO_MERGE {

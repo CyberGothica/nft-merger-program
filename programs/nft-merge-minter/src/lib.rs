@@ -22,7 +22,7 @@ use {
     },
     std::{cell::RefMut, str::FromStr},
 };
-anchor_lang::declare_id!("2P9A2kLVykgPRpKHYQC7PtDGAhTmwvDkL4yq92dgLQSs");
+anchor_lang::declare_id!("3igxATX3UJwWLcKCutKsbTF22wU1Hbvb9LCVNmqLPSSM");
 
 const PREFIX: &str = "candy_machine";
 
