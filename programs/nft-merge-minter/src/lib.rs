@@ -6,9 +6,9 @@ use {
         prelude::*,
         solana_program::{
             log::sol_log_compute_units,
-            program::{invoke, invoke_signed},
+            program::{invoke_signed},
             serialize_utils::{read_pubkey, read_u16},
-            sysvar, borsh::try_from_slice_unchecked, pubkey::Pubkey
+            sysvar, pubkey::Pubkey
         },
         AnchorDeserialize, AnchorSerialize, Discriminator, Key,
     },
@@ -17,16 +17,13 @@ use {
     metaplex_token_metadata::{
         instruction::{create_master_edition, create_metadata_accounts, update_metadata_accounts},
         state::{
-            Metadata, MAX_CREATOR_LEN, MAX_CREATOR_LIMIT, MAX_NAME_LENGTH, MAX_SYMBOL_LENGTH, MAX_URI_LENGTH,
-        },
-        utils::{ assert_initialized, spl_token_burn, TokenBurnParams }
+            MAX_CREATOR_LEN, MAX_CREATOR_LIMIT, MAX_NAME_LENGTH, MAX_SYMBOL_LENGTH, MAX_URI_LENGTH,
+        }
     },
-    spl_token::state::Mint,
-    std::{cell::RefMut, ops::Deref, str::FromStr},
+    std::{cell::RefMut, str::FromStr},
 };
-anchor_lang::declare_id!("B5Jhr2UtyNg9bkktdE79ep5DRagZLNwY9LYquLuFrcvr");
+anchor_lang::declare_id!("2P9A2kLVykgPRpKHYQC7PtDGAhTmwvDkL4yq92dgLQSs");
 
-const EXPIRE_OFFSET: i64 = 10 * 60;
 const PREFIX: &str = "candy_machine";
 
 #[program]
@@ -40,9 +37,6 @@ pub mod nft_merge_minter {
         let candy_machine = &mut ctx.accounts.candy_machine;
         let candy_machine_creator = &ctx.accounts.candy_machine_creator;
         // Note this is the wallet of the Candy machine
-        let wallet = &ctx.accounts.wallet;
-        let payer = &ctx.accounts.payer;
-        let token_program = &ctx.accounts.token_program;
         let recent_blockhashes = &ctx.accounts.recent_blockhashes;
         let instruction_sysvar_account = &ctx.accounts.instruction_sysvar_account;
 
@@ -203,12 +197,12 @@ pub mod nft_merge_minter {
                 return Err(ErrorCode::SuspiciousTransaction.into());
             }
 
-            if(program_id == nft_merge_burner::id()) {
+            if program_id == nft_merge_burner::id() {
                 detected_burn_instruction = true;
             }
         }
 
-        if(!detected_burn_instruction) {
+        if !detected_burn_instruction {
             msg!("You need to burn nfts in order to mint new one!");
             return Err(ErrorCode::NoBurnInstruction.into());
         }
@@ -239,11 +233,8 @@ pub mod nft_merge_minter {
         candy_machine.wallet = ctx.accounts.wallet.key();
         candy_machine.data = data;
 
-        if ctx.remaining_accounts.len() > 0 {
-            candy_machine.token_mint = Some(ctx.remaining_accounts[0].key())
-        } else {
-            candy_machine.token_mint = None;
-        }
+        candy_machine.token_mint = None;
+
         Ok(())
     }
 
@@ -359,22 +350,6 @@ pub mod nft_merge_minter {
             token_mint: None,
             items_redeemed: 0,
         };
-
-        if ctx.remaining_accounts.len() > 0 {
-            let token_mint_info = &ctx.remaining_accounts[0];
-            let _token_mint: Mint = assert_initialized(&token_mint_info)?;
-            let token_account: spl_token::state::Account =
-                assert_initialized(&ctx.accounts.wallet)?;
-
-            assert_owned_by(&token_mint_info, &spl_token::id())?;
-            assert_owned_by(&ctx.accounts.wallet, &spl_token::id())?;
-
-            if token_account.mint != *token_mint_info.key {
-                return Err(ErrorCode::MintMismatch.into());
-            }
-
-            candy_machine.token_mint = Some(*token_mint_info.key);
-        }
 
         let mut array_of_zeroes = vec![];
         while array_of_zeroes.len() < MAX_SYMBOL_LENGTH - candy_machine.data.symbol.len() {

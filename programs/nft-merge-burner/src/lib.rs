@@ -12,9 +12,9 @@ use {
         utils::{ assert_initialized, spl_token_burn, TokenBurnParams },
         state::Metadata
     },
-    std::{cell::RefMut, ops::Deref, str::FromStr}
+    std::str::FromStr
 };
-anchor_lang::declare_id!("6vXpr44iixcD9j5Nkim5f49d29weie2uvRWAPyoyjEB9");
+anchor_lang::declare_id!("DVfyt45U4wzui3Gd48DoEvrZUMTBbYNh1dukRXasjc8q");
 
 pub const AMOUNT_OF_NFTS_TO_MERGE: usize = 4;
 
@@ -30,11 +30,11 @@ pub mod nft_merge_burner {
             return Ok(());
         }
 
-        if(&ctx.remaining_accounts.len() < &(AMOUNT_OF_NFTS_TO_MERGE * 3)) {
+        if &ctx.remaining_accounts.len() < &(AMOUNT_OF_NFTS_TO_MERGE * 3) {
             return Err(MergeError::NotEnoughNftsError.into());
         }
 
-        if(&ctx.remaining_accounts.len() > &(AMOUNT_OF_NFTS_TO_MERGE * 3)) {
+        if &ctx.remaining_accounts.len() > &(AMOUNT_OF_NFTS_TO_MERGE * 3) {
             return Err(MergeError::SuspiciousAccounts.into());
         }
 
@@ -55,11 +55,11 @@ pub mod nft_merge_burner {
 
             msg!("Candy machine id: {:?}", metadata.data.creators.as_ref().unwrap()[0].address.clone());
             
-            if(&metadata.mint != &nft_token_account_info.mint || nft_account.key != &metadata.mint ) {
+            if &metadata.mint != &nft_token_account_info.mint || nft_account.key != &metadata.mint {
                 return Err(MergeError::MintMismatch.into());
             }
 
-            if(&nft_token_account_info.owner != ctx.accounts.payer.to_account_info().key) {
+            if &nft_token_account_info.owner != ctx.accounts.payer.to_account_info().key {
                 return Err(MergeError::WrongOwner.into());
             }
             
