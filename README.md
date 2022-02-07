@@ -1,6 +1,5 @@
 ### NFT merger
 Merger for CyberGothica's nfts.
-twitter.com/Cyber_Gothica
 
 Current repo is fork of metaplex program library project: https://github.com/metaplex-foundation/metaplex-program-library
 
