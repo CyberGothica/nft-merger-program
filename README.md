@@ -14,6 +14,6 @@ Commands:
 2. solana address -k ./target/deploy/nft_merge_burner-keypair.json <- keypair used for nft burner
 3. solana address -k ./target/deploy/nft_merge_minter-keypair.json <- keypair for nft minter
 
-For deploying:
-- solana program deploy /home/yuriiihor/Programs/nft-merger-program/target/deploy/nft_merge_burner.so --max-len 250000
-- solana program deploy /home/yuriiihor/Programs/nft-merger-program/target/deploy/nft_merge_minter.so --max-len 360000
+For deploying (if you want to minimize payment):
+- solana program deploy ./target/deploy/nft_merge_burner.so --max-len 250000
+- solana program deploy ./target/deploy/nft_merge_minter.so --max-len 360000
